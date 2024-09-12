@@ -1,30 +1,23 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="w-[100px] h-[100px] bg-red-600 rounded-[50px]"></div>
+  <div class="flex items-center justify-between">
+    <div class="flex-1 text-center leading-[50px] bg-[#123456]">1</div>
+    <div class="flex-1 text-center leading-[50px] bg-[#654321]">2</div>
+    <div class="flex-1 text-center leading-[50px] bg-[#098765]">3</div>
   </div>
-  <HelloWorld msg="Vite + Vue" />
+  <div
+    class="bg-gradient-to-r from-[#128945] to-[#d90b07] h-16 font-bold text-white"
+  >
+    线性渐变
+  </div>
+  <Icon icon="gridicons:bug" style="color: red; font-size: 100px" />
+  <Icon icon="gridicons:time" style="color: green; font-size: 100px" />
+  <Icon
+    icon="bitcoin-icons:brush-filled"
+    style="color: #3171f2; font-size: 100px"
+  />
+  <Icon icon="noto:lollipop" style="font-size: 300px" />
 </template>
-
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+<script setup>
+import { Icon } from "@iconify/vue";
+</script>
