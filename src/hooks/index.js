@@ -1,10 +1,5 @@
 /* eslint-disable consistent-return */
-import {
-  ref,
-  reactive,
-  toRefs,
-  onBeforeUnmount,
-} from "vue";
+import { ref, reactive, toRefs, onBeforeUnmount } from "vue";
 
 export function useFullscreen(element) {
   // 元素全屏状态
@@ -96,9 +91,10 @@ export function useHttp(promiseGenerator, config = {}) {
     if (!(promise instanceof Promise)) return;
     promise
       .then((res) => {
-        const result = typeof option.transformData === "function"
-          ? option.transformData(res)
-          : res;
+        const result =
+          typeof option.transformData === "function"
+            ? option.transformData(res)
+            : res;
         data.value = result;
       })
       .catch((err) => {
@@ -111,7 +107,10 @@ export function useHttp(promiseGenerator, config = {}) {
   // const result = { loading, data, error };
   if (option.manual) {
     return {
-      loading, data, error, run,
+      loading,
+      data,
+      error,
+      run,
     };
   }
   return {

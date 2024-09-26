@@ -10,5 +10,3 @@ import pinia from "./store";
 initErrorHandle();
 
 createApp(App).use(router).use(pinia).use(Icon).mount("#app");
-
-console.log("import.meta.env:", import.meta.env);
