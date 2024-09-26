@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ["airbnb-base", "plugin:vue/vue3-essential"],
+  extends: ["airbnb-base", "plugin:vue/vue3-essential", "prettier"],
   overrides: [
     {
       env: {
@@ -23,5 +23,14 @@ module.exports = {
   rules: {
     quotes: ["error", "double"],
     "import/no-extraneous-dependencies": "off",
+    "vue/multi-word-component-names": "off",
+  },
+  settings: {
+    "import/resolver": {
+      alias: {
+        map: [["@", "./src"]],
+        extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
+      },
+    },
   },
 };

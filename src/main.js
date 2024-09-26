@@ -1,6 +1,14 @@
 import { createApp } from "vue";
-import "./style.css";
+import "@/style.css";
+import "vant/lib/index.css";
 import { Icon } from "@iconify/vue";
-import App from "./App.vue";
+import App from "@/App.vue";
+import initErrorHandle from "@/utils/initErrorHandle";
+import router from "./router";
+import pinia from "./store";
 
-createApp(App).use(Icon).mount("#app");
+initErrorHandle();
+
+createApp(App).use(router).use(pinia).use(Icon).mount("#app");
+
+console.log("import.meta.env:", import.meta.env);

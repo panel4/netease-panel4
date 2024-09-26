@@ -1,23 +1,35 @@
 <template>
-  <div class="w-[100px] h-[100px] bg-red-600 rounded-[50px]"></div>
-  <div class="flex items-center justify-between">
-    <div class="flex-1 text-center leading-[50px] bg-[#123456]">1</div>
-    <div class="flex-1 text-center leading-[50px] bg-[#654321]">2</div>
-    <div class="flex-1 text-center leading-[50px] bg-[#098765]">3</div>
+  <div>
+    <RouterView class="w-[100vw] h-[50vw]" />
+    <div
+      class="border text-red-600 text-[30px]"
+      @click="countStore.setValue(1234)"
+    >
+      在APP组件中，count：{{ countStore.count }}
+    </div>
+    <div class="border text-green-300 text-[30px]">
+      {{ countStore.powCount }}
+    </div>
+    <img :src="userStore.userInfo?.profile.avatarUrl" alt="" />
   </div>
-  <div
-    class="bg-gradient-to-r from-[#128945] to-[#d90b07] h-16 font-bold text-white"
-  >
-    线性渐变
-  </div>
-  <Icon icon="gridicons:bug" style="color: red; font-size: 100px" />
-  <Icon icon="gridicons:time" style="color: green; font-size: 100px" />
-  <Icon
-    icon="bitcoin-icons:brush-filled"
-    style="color: #3171f2; font-size: 100px"
-  />
-  <Icon icon="noto:lollipop" style="font-size: 300px" />
 </template>
 <script setup>
-import { Icon } from "@iconify/vue";
+import { watchEffect } from "vue";
+import { showDialog } from "vant";
+// import "vant/lib/dialog/index.css";
+import { useCountStore, useUserStore } from "@/store";
+import { useNetworkStatus } from "./hooks";
+
+const countStore = useCountStore();
+const userStore = useUserStore();
+
+const isOnLine = useNetworkStatus();
+watchEffect(() => {
+  if (!isOnLine.value) {
+    showDialog({
+      message: "网络似乎失去了连接！",
+      theme: "round-button",
+    });
+  }
+});
 </script>
