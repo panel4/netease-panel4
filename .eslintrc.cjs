@@ -21,7 +21,7 @@ module.exports = {
   },
   plugins: ["vue"],
   rules: {
-    quotes: ["error", "double"],
+    quotes: ["error", "multiple"],
     "import/no-extraneous-dependencies": "off",
     "vue/multi-word-component-names": "off",
   },
