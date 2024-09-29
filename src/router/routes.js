@@ -1,6 +1,6 @@
 export default [
   {
-    path: '/',
+    path: '/home',
     component: () => import('@/views/Home/index.vue')
   },
   {
@@ -10,5 +10,9 @@ export default [
       title: '播放器',
       keepAlive: true
     }
-  }
+  },
+  {
+    path: "/coll",
+    component: () => import("@/views/songs/PlaylistColl.vue"),
+  },
 ]
