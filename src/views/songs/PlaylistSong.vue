@@ -273,7 +273,7 @@
     <div v-if="drawerVisible" class="dropdown-mask" @click="toggleDrawer"></div>
     <transition name="slide-down">
       <div v-if="drawerVisible" class="dropdown-box">
-        <div>
+        <div class="bg-[#4f6989] h-[18vw]">
           <Icon
             icon="weui:search-filled"
             class="w-[7vw] h-[7vw] absolute top-[5vw] left-[6vw]"
@@ -283,10 +283,46 @@
             type="text"
             class="bg-[#6e8bae] w-[80vw] h-[8vw] a rounded-[20vw] mt-[5vw] ml-[5vw]"
             placeholder="搜索歌单内歌曲"
+            v-model="searchQuery"
           />
-          <span class="text-lg pt-[5vw] pl-[3vw]" style="color: white"
+          <span
+            class="text-lg pt-[5vw] pl-[3vw]"
+            style="color: white"
+            @click="closSpan"
             >取消</span
           >
+        </div>
+        <div class="bg-white h-[100%]">
+          <div
+            v-for="item in filteredItems"
+            :key="item.id"
+            class="flex justify-between h-[20vw]"
+          >
+            <ul class="ml-[4vw]">
+              <li class="text-[3.8vw] m-[1vw]">
+                 {{ item.name }}
+              </li>
+              <li class="flex text-[3.1vw] text-[#848484] ml-[1vw]">
+                
+                <span class="line-clamp-1">{{ item.ar[0].name }}</span>
+                <span class="mx-[1vw]">-</span>
+                <span class="line-clamp-1">{{ item.al.name }}</span> 
+              </li>
+              <li class="flex ml-[1vw]">
+                <img
+                  class="w-[4vw] h-[4vw] rounded-[2vw]"
+                  :src="menu.creator.avatarUrl"
+                  alt=""
+                /><span class="text-[3.1vw] text-[#848484]">{{
+                  menu.creator.nickname
+                }}</span>
+              </li>
+            </ul>
+            <Icon
+              icon="ant-design:more-outlined"
+              class="text-[8vw] text-[#9195a1] mt-[3.5vw] mr-[4vw]"
+            />
+          </div>
         </div>
       </div>
     </transition>
@@ -444,6 +480,8 @@ const defaultIcon = ref(true);
 const isLarge = ref(false);
 const isVis = ref(true);
 const isViss = ref(false);
+const searchQuery = ref("");
+const items = ref([]);
 
 const currentIcon = computed(() => {
   return defaultIcon.value ? icon1 : icon2;
@@ -470,6 +508,19 @@ const closeOverlay = () => {
 const toggleDrawer = () => {
   drawerVisible.value = !drawerVisible.value;
 };
+const closSpan = () => {
+  drawerVisible.value = false;
+};
+// 计算过滤后的列表
+// eslint-disable-next-line arrow-body-style
+const filteredItems = computed(() => {
+  return items.value.filter(
+    (item) =>
+      // eslint-disable-next-line comma-dangle, implicit-arrow-linebreak
+      item.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+    // eslint-disable-next-line function-paren-newline
+  );
+});
 
 const handleMaskClick = () => {
   showDrawer.value = false;
@@ -480,18 +531,18 @@ const shareMaskClick = () => {
   shareDrawer.value = false;
 };
 getPlaylistSong(route.query.id).then((res) => {
-  console.log(res);
+  items.value = res.playlist.tracks;
   menu.value = res.playlist;
   song.value = res.privileges;
   collection.value = res.playlist.subscribers.slice(0, 5);
 });
 const changeCount = (num) => {
- if (num >= 100000000) {
- return `${(num / 100000000).toFixed(2)}亿`;
- }
- if (num >= 10000) {
-  return `${(num / 10000).toFixed(2)}万`;
- }
+  if (num >= 100000000) {
+    return `${(num / 100000000).toFixed(2)}亿`;
+  }
+  if (num >= 10000) {
+    return `${(num / 10000).toFixed(2)}万`;
+  }
 };
 </script>
 <style scoped>
@@ -526,12 +577,11 @@ const changeCount = (num) => {
   position: fixed;
   top: 0;
   left: 0;
-  height: 15vw;
+  height: 100%;
   width: 100%;
   max-height: 100vh;
   overflow: auto;
   z-index: 999;
-  background-color: #4f6989;
   transform: translateY(0%);
   transition: transform 0.3s ease-in-out;
 }
