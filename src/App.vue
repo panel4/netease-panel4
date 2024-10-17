@@ -6,6 +6,4 @@
 import TabBar from "./views/Home/TabBar.vue";
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
