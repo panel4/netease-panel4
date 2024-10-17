@@ -120,5 +120,5 @@ export function useHttp(promiseGenerator, config = {}) {
   };
 }
 
-// import { getHomePageData } from "@/api";
-// useHttp(getHomePageData)
+import { getHomePageData } from "@/api";
+useHttp(getHomePageData);

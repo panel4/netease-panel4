@@ -3,7 +3,7 @@
     ref="wrapper"
     :class="`wrapper overflow-hidden ${props.config.scrollX ? 'flex' : ''}`"
   >
-    <div :class="`${props.config.scrollX ? 'flex flex-1' : ''}`">
+    <div :class="`${props.config.scrollX ? 'flex flex-1' : ''}`" :style="style">
       <slot />
     </div>
   </div>
@@ -16,8 +16,11 @@ import {
   defineProps,
   watchEffect,
   nextTick,
+  useAttrs,
 } from "vue";
 import BScroll from "@better-scroll/core";
+console.log(useAttrs(), "1");
+const style = useAttrs();
 
 const props = defineProps({
   // 当依赖发生变化 那么我就刷新better-scorll
